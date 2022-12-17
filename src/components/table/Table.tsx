@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { getFormattedMinutesAndSeconds } from '../../utils';
+import { getFormattedMinutesAndSeconds, getUid } from '../../utils';
 
 interface IParameters {
   [key: string]: string;
@@ -32,6 +32,7 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
   const { parameters, participants, activeParticipantId, startTime, waitTime } =
     data;
 
+  const [currentUid, setCurrentUid] = useState('');
   const [remainedTime, setRemainedTime] = useState<number | null>(null);
 
   const calcTime = (startTime: number, delay: number): number => {
@@ -51,6 +52,11 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
     };
   }, [data]); // mb individual properties should be included here?
 
+  useEffect(() => {
+    const uid = getUid();
+    if (uid) setCurrentUid(uid);
+  }, []);
+
   return (
     <table>
       <thead>
@@ -69,6 +75,7 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
           {participants.map((participant) => (
             <th key={participant.id}>
               {participant.name}
+              {participant.id === currentUid && ' (вы)'}
               {usersOnline.indexOf(participant.id) !== -1 ? (
                 <span style={{ color: 'green' }}> *</span>
               ) : (
