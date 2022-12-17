@@ -56,7 +56,7 @@ const Table: FC<ITableProps> = ({ data }) => {
         <tr>
           <th>Ход</th>
           {participants.map((participant) => (
-            <th>
+            <th key={participant.id}>
               {activeParticipantId === participant.id && remainedTime
                 ? getFormattedMinutesAndSeconds(remainedTime)
                 : null}
@@ -66,20 +66,20 @@ const Table: FC<ITableProps> = ({ data }) => {
         <tr>
           <th>Параметры и требования</th>
           {participants.map((participant) => (
-            <th>{participant.name}</th>
+            <th key={participant.id}>{participant.name}</th>
           ))}
         </tr>
       </thead>
       <tbody>
-        {Object.entries(parameters).map(([key, value]) => (
-          <tr>
+        {Object.entries(parameters).map(([key, value], index) => (
+          <tr key={index}>
             <th>{value}</th>
             {participants.map((participant) => (
-              <td>
+              <td key={participant.id}>
                 <>
                   {typeof participant.currentOffer[key] === 'object'
                     ? Object.values(participant.currentOffer[key]).map(
-                        (value) => <span>{value}</span>
+                        (value, index) => <span key={index}>{value}</span>
                       )
                     : null}
                   {typeof participant.currentOffer[key] === 'string'
@@ -93,7 +93,7 @@ const Table: FC<ITableProps> = ({ data }) => {
         <tr>
           <th>Действия:</th>
           {participants.map((participant) => (
-            <td></td>
+            <td key={participant.id}></td>
           ))}
         </tr>
       </tbody>
