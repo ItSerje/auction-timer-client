@@ -25,9 +25,10 @@ interface IAuctionState {
 
 interface ITableProps {
   data: IAuctionState;
+  usersOnline: string[];
 }
 
-const Table: FC<ITableProps> = ({ data }) => {
+const Table: FC<ITableProps> = ({ data, usersOnline }) => {
   const { parameters, participants, activeParticipantId, startTime, waitTime } =
     data;
 
@@ -66,7 +67,14 @@ const Table: FC<ITableProps> = ({ data }) => {
         <tr>
           <th>Параметры и требования</th>
           {participants.map((participant) => (
-            <th key={participant.id}>{participant.name}</th>
+            <th key={participant.id}>
+              {participant.name}
+              {usersOnline.indexOf(participant.id) !== -1 ? (
+                <span style={{ color: 'green' }}> *</span>
+              ) : (
+                <span style={{ color: 'red' }}> *</span>
+              )}
+            </th>
           ))}
         </tr>
       </thead>
