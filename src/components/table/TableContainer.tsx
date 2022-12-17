@@ -1,17 +1,12 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Table from './Table';
 import { BASE_URL_WS } from '../../constants';
+import { getUid } from '../../utils';
 
 const TableContainer: FC = () => {
   const [data, setData] = useState<any>(null);
   const [usersOnline, setUsersOnline] = useState<string[]>([]);
   const ws = useRef<WebSocket | null>(null);
-
-  const getUid = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const uid = urlParams.get('uid');
-    return uid;
-  };
 
   const getData = useCallback(() => {
     if (!ws.current) return;

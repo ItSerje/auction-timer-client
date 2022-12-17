@@ -13,3 +13,9 @@ export const getFormattedMinutesAndSeconds = (time: number): string => {
   // return { h, m, s };
   return `${m}:${s}`;
 };
+
+export const getUid = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const uid = urlParams.get('uid');
+  return uid;
+};
