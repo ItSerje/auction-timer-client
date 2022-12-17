@@ -1,17 +1,35 @@
 import { FC, useEffect, useState } from 'react';
 import { getFormattedMinutesAndSeconds } from '../../utils';
 
+interface IParameters {
+  [key: string]: string;
+}
+
+interface IAuctionState {
+  parameters: IParameters;
+  participants: {
+    id: string;
+    name: string;
+    currentOffer: {
+      [key: keyof IParameters]:
+        | string
+        | {
+            [key: string]: string;
+          };
+    };
+  }[];
+  activeParticipantId: string;
+  startTime: number;
+  waitTime: number;
+}
+
 interface ITableProps {
-  data: {
-    participants: string[];
-    activeParticipant: string;
-    startTime: number;
-    delay: number;
-  };
+  data: IAuctionState;
 }
 
 const Table: FC<ITableProps> = ({ data }) => {
-  const { participants, activeParticipant, startTime, delay } = data;
+  const { parameters, participants, activeParticipantId, startTime, waitTime } =
+    data;
 
   const [remainedTime, setRemainedTime] = useState<number | null>(null);
 
@@ -21,9 +39,9 @@ const Table: FC<ITableProps> = ({ data }) => {
 
   useEffect(() => {
     // setRemainedTime(0);
-    setRemainedTime(calcTime(startTime, delay));
+    setRemainedTime(calcTime(startTime, waitTime));
     const timer = setInterval(
-      () => setRemainedTime(calcTime(startTime, delay)),
+      () => setRemainedTime(calcTime(startTime, waitTime)),
       1000
     );
     return () => {
@@ -37,104 +55,46 @@ const Table: FC<ITableProps> = ({ data }) => {
       <thead>
         <tr>
           <th>Ход</th>
-          <th>
-            {activeParticipant === participants[0] && remainedTime
-              ? getFormattedMinutesAndSeconds(remainedTime)
-              : null}
-          </th>
-          <th>
-            {activeParticipant === participants[1] && remainedTime
-              ? getFormattedMinutesAndSeconds(remainedTime)
-              : null}
-          </th>
-          <th>
-            {activeParticipant === participants[2] && remainedTime
-              ? getFormattedMinutesAndSeconds(remainedTime)
-              : null}
-          </th>
-          <th>
-            {activeParticipant === participants[3] && remainedTime
-              ? getFormattedMinutesAndSeconds(remainedTime)
-              : null}
-          </th>
+          {participants.map((participant) => (
+            <th>
+              {activeParticipantId === participant.id && remainedTime
+                ? getFormattedMinutesAndSeconds(remainedTime)
+                : null}
+            </th>
+          ))}
         </tr>
         <tr>
           <th>Параметры и требования</th>
-          <th>Участник №{participants[0]}</th>
-          <th>Участник №{participants[1]}</th>
-          <th>Участник №{participants[2]}</th>
-          <th>Участник №{participants[3]}</th>
+          {participants.map((participant) => (
+            <th>{participant.name}</th>
+          ))}
         </tr>
       </thead>
-
       <tbody>
-        <tr>
-          <th>
-            Наличие комплекса мероприятий, повышающих стандартны качества
-            изготовления
-          </th>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-          <td>-</td>
-        </tr>
-        <tr>
-          <th>Срок изготовления лота, дней</th>
-          <td>80</td>
-          <td>90</td>
-          <td>75</td>
-          <td>120</td>
-        </tr>
-        <tr>
-          <th>Гарантийные обязательства, мес</th>
-          <td>24</td>
-          <td>24</td>
-          <td>22</td>
-          <td>36</td>
-        </tr>
-        <tr>
-          <th>Гарантийные обязательства, мес</th>
-          <td>24</td>
-          <td>24</td>
-          <td>22</td>
-          <td>36</td>
-        </tr>
-        <tr>
-          <th>Условия оплаты</th>
-          <td>30%</td>
-          <td>100%</td>
-          <td>60%</td>
-          <td>50%</td>
-        </tr>
-        <tr>
-          <th>Стоимость изготовления лота, руб. (без НДС)</th>
-          <td>
-            <span className='blue-text'>3,700,000 руб.</span>
-            <span className='red-text'>-25,000 руб.</span>
-            <span className='green-text'>2,475,000 руб.</span>
-          </td>
-          <td>
-            <span className='blue-text'>3,200,000 руб.</span>
-            <span className='red-text'>-25,000 руб.</span>
-            <span className='green-text'>2,475,000 руб.</span>
-          </td>
-          <td>
-            <span className='blue-text'>2,800,000 руб.</span>
-            <span className='red-text'>-25,000 руб.</span>
-            <span className='green-text'>2,475,000 руб.</span>
-          </td>
-          <td>
-            <span className='blue-text'>2,500,000 руб.</span>
-            <span className='red-text'>-25,000 руб.</span>
-            <span className='green-text'>2,475,000 руб.</span>
-          </td>
-        </tr>
+        {Object.entries(parameters).map(([key, value]) => (
+          <tr>
+            <th>{value}</th>
+            {participants.map((participant) => (
+              <td>
+                <>
+                  {typeof participant.currentOffer[key] === 'object'
+                    ? Object.values(participant.currentOffer[key]).map(
+                        (value) => <span>{value}</span>
+                      )
+                    : null}
+                  {typeof participant.currentOffer[key] === 'string'
+                    ? participant.currentOffer[key]
+                    : null}
+                </>
+              </td>
+            ))}
+          </tr>
+        ))}
         <tr>
           <th>Действия:</th>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          {participants.map((participant) => (
+            <td></td>
+          ))}
         </tr>
       </tbody>
     </table>
