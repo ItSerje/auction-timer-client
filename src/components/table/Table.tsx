@@ -109,24 +109,24 @@ const Table: FC<ITableProps> = ({ data }) => {
         <tr>
           <th>Стоимость изготовления лота, руб. (без НДС)</th>
           <td>
-            <span className='auction-table__amount--blue'>3,700,000 руб.</span>
-            <span className='auction-table__amount--red'>-25,000 руб.</span>
-            <span className='auction-table__amount--green'>2,475,000 руб.</span>
+            <span className='blue-text'>3,700,000 руб.</span>
+            <span className='red-text'>-25,000 руб.</span>
+            <span className='green-text'>2,475,000 руб.</span>
           </td>
           <td>
-            <span className='auction-table__amount--blue'>3,200,000 руб.</span>
-            <span className='auction-table__amount--red'>-25,000 руб.</span>
-            <span className='auction-table__amount--green'>2,475,000 руб.</span>
+            <span className='blue-text'>3,200,000 руб.</span>
+            <span className='red-text'>-25,000 руб.</span>
+            <span className='green-text'>2,475,000 руб.</span>
           </td>
           <td>
-            <span className='auction-table__amount--blue'>2,800,000 руб.</span>
-            <span className='auction-table__amount--red'>-25,000 руб.</span>
-            <span className='auction-table__amount--green'>2,475,000 руб.</span>
+            <span className='blue-text'>2,800,000 руб.</span>
+            <span className='red-text'>-25,000 руб.</span>
+            <span className='green-text'>2,475,000 руб.</span>
           </td>
           <td>
-            <span className='auction-table__amount--blue'>2,500,000 руб.</span>
-            <span className='auction-table__amount--red'>-25,000 руб.</span>
-            <span className='auction-table__amount--green'>2,475,000 руб.</span>
+            <span className='blue-text'>2,500,000 руб.</span>
+            <span className='red-text'>-25,000 руб.</span>
+            <span className='green-text'>2,475,000 руб.</span>
           </td>
         </tr>
         <tr>
