@@ -12,7 +12,6 @@ const TableContainer: FC = () => {
     if (!ws.current) return;
 
     ws.current.onmessage = (e: { data: string }) => {
-      //подписка на получение данных по вебсокету
       const message = JSON.parse(e.data);
       if (message.auctionState) {
         setData(message.auctionState);
@@ -29,6 +28,10 @@ const TableContainer: FC = () => {
     getData();
     return () => ws.current?.close();
   }, [ws, getData]);
+
+  if (!data) {
+    return <div>Нет данных...</div>;
+  }
 
   return (
     <div>
