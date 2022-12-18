@@ -42,10 +42,14 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
   useEffect(() => {
     // setRemainedTime(0);
     setRemainedTime(calcTime(startTime, waitTime));
-    const timer = setInterval(
-      () => setRemainedTime(calcTime(startTime, waitTime)),
-      1000
-    );
+    const timer = setInterval(() => {
+      const currentValue = calcTime(startTime, waitTime);
+      if (currentValue >= 0) {
+        setRemainedTime(calcTime(startTime, waitTime));
+      } else {
+        clearInterval(timer);
+      }
+    }, 1000);
     return () => {
       //   setRemainedTime(null);
       clearInterval(timer);
