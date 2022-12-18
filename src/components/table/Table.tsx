@@ -40,7 +40,6 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
   };
 
   useEffect(() => {
-    // setRemainedTime(0);
     setRemainedTime(calcTime(startTime, waitTime));
     const timer = setInterval(() => {
       const currentValue = calcTime(startTime, waitTime);
@@ -51,10 +50,9 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
       }
     }, 1000);
     return () => {
-      //   setRemainedTime(null);
       clearInterval(timer);
     };
-  }, [data]); // mb individual properties should be included here?
+  }, [data]);
 
   useEffect(() => {
     const uid = getUid();
