@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { getFormattedMinutesAndSeconds, getUid } from '../../utils';
+import { formatTimer, getUid } from '../../utils';
 
 interface IParameters {
   [key: string]: string;
@@ -65,7 +65,7 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
           {participants.map((participant) => (
             <th key={participant.id}>
               {activeParticipantId === participant.id && remainedTime
-                ? getFormattedMinutesAndSeconds(remainedTime)
+                ? formatTimer(remainedTime)
                 : null}
             </th>
           ))}
