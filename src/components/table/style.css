@@ -1,0 +1,91 @@
+.auction__header {
+  margin-bottom: 1rem;
+  color: var(--color-red-primary);
+}
+
+.auction__subheader {
+  margin-bottom: 1rem;
+  display: inline-block;
+  padding: 0.1rem 0.3rem;
+  font-weight: 700;
+  color: var(--color-red-secondary);
+  background: var(--color-rose-primary);
+}
+
+.auction__timer {
+  display: inline-block;
+  width: 100%;
+  background: var(--color-rose-primary);
+  color: var(--color-red-tertiary);
+  border-radius: 3px;
+  padding: 0.5rem 0.5rem;
+}
+
+.auction__header--primary {
+  color: var(--color-blue-primary);
+}
+
+.auction__header--secondary {
+  text-align: left;
+}
+
+.auction__header--move {
+  min-height: 2.5rem;
+}
+
+.online,
+.offline {
+  position: relative;
+  margin-left: 3px;
+}
+
+.online::after,
+.offline::after {
+  content: '';
+  position: absolute;
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+
+  border-radius: 50%;
+}
+
+.online::after {
+  background-color: var(--color-green-primary);
+}
+
+.offline::after {
+  background-color: var(--color-red-primary);
+}
+
+/* table th,
+table td {
+  padding: 0.5rem 1rem;
+} */
+
+tbody tr:nth-child(odd) {
+  background-color: var(--color-grey-primary);
+}
+
+tbody td {
+  text-align: center;
+}
+
+tbody span {
+  display: inline-block;
+  width: 100%;
+}
+
+table .color-0 {
+  color: var(--color-blue-primary);
+}
+
+table .color-1 {
+  color: var(--color-red-primary);
+}
+
+table .color-2 {
+  color: var(--color-green-primary);
+}

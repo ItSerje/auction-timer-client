@@ -44,7 +44,7 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
     const timer = setInterval(() => {
       const currentValue = calcTime(startTime, waitTime);
       if (currentValue >= 0) {
-        setRemainedTime(calcTime(startTime, waitTime));
+        setRemainedTime(currentValue);
       } else {
         clearInterval(timer);
       }
@@ -63,26 +63,32 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
     <table>
       <thead>
         <tr>
-          <th>Ход</th>
+          <th className='auction__header--primary auction__header--move'>
+            Ход
+          </th>
           {participants.map((participant) => (
             <th key={participant.id}>
-              {activeParticipantId === participant.id && remainedTime
-                ? formatTimer(remainedTime)
-                : null}
+              {activeParticipantId === participant.id && remainedTime ? (
+                <span className='auction__timer'>
+                  {formatTimer(remainedTime)}
+                </span>
+              ) : null}
             </th>
           ))}
         </tr>
         <tr>
-          <th>Параметры и требования</th>
+          <th className='auction__header--primary'>Параметры и требования</th>
           {participants.map((participant) => (
-            <th key={participant.id}>
-              {participant.name}
-              {participant.id === currentUid && ' (вы)'}
-              {usersOnline.indexOf(participant.id) !== -1 ? (
-                <span style={{ color: 'green' }}> *</span>
-              ) : (
-                <span style={{ color: 'red' }}> *</span>
-              )}
+            <th key={participant.id} className='auction__header--primary'>
+              <div className='auction__participant'>
+                {participant.name}
+                {participant.id === currentUid && ' (вы)'}
+                {usersOnline.indexOf(participant.id) !== -1 ? (
+                  <span className='online'> </span>
+                ) : (
+                  <span className='offline'> </span>
+                )}
+              </div>
             </th>
           ))}
         </tr>
@@ -90,13 +96,17 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
       <tbody>
         {Object.entries(parameters).map(([key, value], index) => (
           <tr key={index}>
-            <th>{value}</th>
+            <th className='auction__header--secondary'>{value}</th>
             {participants.map((participant) => (
               <td key={participant.id}>
                 <>
                   {typeof participant.currentOffer[key] === 'object'
                     ? Object.values(participant.currentOffer[key]).map(
-                        (value, index) => <span key={index}>{value}</span>
+                        (value, index) => (
+                          <span key={index} className={`color-${index}`}>
+                            {value}
+                          </span>
+                        )
                       )
                     : null}
                   {typeof participant.currentOffer[key] === 'string'
@@ -108,7 +118,7 @@ const Table: FC<ITableProps> = ({ data, usersOnline }) => {
           </tr>
         ))}
         <tr>
-          <th>Действия:</th>
+          <th className='auction__header--secondary'>Действия:</th>
           {participants.map((participant) => (
             <td key={participant.id}></td>
           ))}

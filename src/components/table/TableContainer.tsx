@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import Table from './Table';
 import { BASE_URL_WS } from '../../constants';
 import { getUid } from '../../utils';
+import './style.css';
 
 const TableContainer: FC = () => {
   const [data, setData] = useState<any>(null);
@@ -34,14 +35,14 @@ const TableContainer: FC = () => {
   }
 
   return (
-    <div>
-      <h2>
+    <div className='container'>
+      <h2 className='auction__header'>
         Ход торгов Тестовые торги на аппарат ЛОТОС №1234567 (20.01.2023 10:00)
       </h2>
-      <h3>
+      <p className='auction__subheader'>
         Уважаемые участники, во время вашего хода вы можете изменить параметры
         торгов, указанных в таблице:
-      </h3>
+      </p>
       {data && <Table data={data} usersOnline={usersOnline} />}
     </div>
   );
