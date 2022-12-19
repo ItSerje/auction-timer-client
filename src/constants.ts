@@ -1,1 +1,2 @@
-export const BASE_URL_WS = 'ws://localhost:8081/';
+export const BASE_URL_WS =
+  'ws://auction-timer-server-production.up.railway.app/';
