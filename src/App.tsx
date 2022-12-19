@@ -1,12 +1,7 @@
-import './App.css';
 import TableContainer from './components/table/TableContainer';
 
 function App() {
-  return (
-    <div className='App'>
-      <TableContainer />
-    </div>
-  );
+  return <TableContainer />;
 }
 
 export default App;
