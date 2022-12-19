@@ -18,9 +18,9 @@
 
 Можно зайти в комнату от имени одного из следующих четырех пользователей:
 
-https://auction-timer.netlify.app?uid=1
-https://auction-timer.netlify.app?uid=2
-https://auction-timer.netlify.app?uid=3
-https://auction-timer.netlify.app?uid=4
+- https://auction-timer.netlify.app?uid=1
+- https://auction-timer.netlify.app?uid=2
+- https://auction-timer.netlify.app?uid=3
+- https://auction-timer.netlify.app?uid=4
 
 Онлайн-статус пользователей подсвечивается.
