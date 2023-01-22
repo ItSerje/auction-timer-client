@@ -25,7 +25,8 @@ const TableContainer: FC = () => {
 
   useEffect(() => {
     const uid = getUid();
-    ws.current = new WebSocket(BASE_URL_WS + (uid ? `/${uid}` : null));
+    console.log(uid);
+    ws.current = new WebSocket(BASE_URL_WS + (uid ? `/${uid}` : ''));
     getData();
     return () => ws.current?.close();
   }, [ws, getData]);
